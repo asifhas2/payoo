@@ -1,5 +1,6 @@
 const pin = 1234;
 const pinNumbers = parseInt(pin)
+const tranjectionData = []
 
 // function to get input valu
 function getInputValuNumber (id){
@@ -48,7 +49,14 @@ document.getElementById("addMoneyBtn").addEventListener("click",function(e){
    }
 
    const allAmount = addAmount + amountValue;
-   setInnerText(allAmount)
+   setInnerText(allAmount);
+
+   const data = {
+    name: "Add Money",
+    time : new Date().toLocaleTimeString()
+   }
+   tranjectionData.push(data)
+   
 })
 
 // cash out feture ****************
@@ -72,8 +80,41 @@ document.getElementById("cashOutMoneyBtn").addEventListener("click",function(e){
      const allAmount = amountValue - ammount;
      setInnerText(allAmount);
      
-    
+     const data = {
+    name: "Cash Out",
+    time : new Date().toLocaleTimeString()
+   }
+   tranjectionData.push(data)
 })
+
+// tranjection feture
+
+   document.getElementById("tranjection-btn").addEventListener("click",function(e){
+    const tranjectionContenar = document.getElementById("tranjection-comtenar")
+
+    tranjectionContenar.innerText=""
+
+    for (const data of tranjectionData){
+        const div = document.createElement("div")
+        div.innerHTML=`
+        <div class="bg-white rounded-2xl flex justify-between items-center mt-3">
+        <div class="flex gap-3 items-center p-2">
+        <div class=" p-3 rounded-full bg-[#f4f5f7]">
+        <img src="assets/wallet1.png" alt="">
+        </div>
+        <div>
+        <p class="font-semibold">${data.name}</p>
+        <p class="text-[12px] text-[#08080880]">${data.time}</p>
+        </div>
+        </div>
+        <div>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+            </div>
+        `
+         tranjectionContenar.appendChild(div)
+    }
+   })
 
 // togling function
 
@@ -96,6 +137,8 @@ function handelToglingBtn(id){
     document.getElementById(id).classList.add("border-[#0874f2]","bg-[#0874f20d]")
 }
 
+
+
 // togling
 
 document.getElementById("add money").addEventListener("click",function(e){
@@ -117,4 +160,8 @@ document.getElementById("get-bunos-btn").addEventListener("click",function(e){
 document.getElementById("pay-bil-btn").addEventListener("click",function(e){
     handelTogling("pay-bil")
     handelToglingBtn("pay-bil-btn")
+})
+document.getElementById("tranjection-btn").addEventListener("click",function(e){
+    handelTogling("tranjection-form")
+    handelToglingBtn("tranjection-btn")
 })
